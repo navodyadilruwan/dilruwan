@@ -36,27 +36,93 @@ export default function Home() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#101828]/90 backdrop-blur-sm text-white px-6 py-4 shadow-md">
-  <div className="max-w-7xl mx-auto flex items-center justify-between">
-    <Link href="#" className="text-xl font-bold hover:text-blue-200">
-      Navodya Dilruwan
-    </Link>
-    <nav className="flex space-x-6">
-      <Link href="#about" className="font-amber hover:text-blue-200 hover:underline">
-        ABOUT
-      </Link>
-      <Link href="#company_project" className="hover:text-blue-200 hover:underline">
-        EXPERIENCE
-      </Link>
-      <Link href="#academic_projects" className="hover:text-blue-200 hover:underline">
-        PROJECTS
-      </Link>
-      <Link href="#contact" className="hover:text-blue-200 hover:underline">
-        CONTACT
-      </Link>
-    </nav>
-  </div>
-</header>
+<header className="fixed top-0 left-0 right-0 z-50 bg-[#101828]/90 backdrop-blur-sm text-white px-6 py-4 shadow-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <Link href="#" className="text-xl font-bold hover:text-blue-200">
+          Navodya Dilruwan
+        </Link>
+
+        {/* Desktop Menu */}
+        <nav className="hidden md:flex space-x-6">
+          <Link href="#about" className="font-amber hover:text-blue-200 hover:underline">
+            ABOUT
+          </Link>
+          <Link href="#company_project" className="hover:text-blue-200 hover:underline">
+            EXPERIENCE
+          </Link>
+          <Link href="#academic_projects" className="hover:text-blue-200 hover:underline">
+            PROJECTS
+          </Link>
+          <Link href="#contact" className="hover:text-blue-200 hover:underline">
+            CONTACT
+          </Link>
+        </nav>
+
+        {/* Mobile Hamburger */}
+        <button
+          className="md:hidden flex items-center focus:outline-none"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {isOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+      </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <nav className="md:hidden bg-[#101828]/95 backdrop-blur-sm mt-2 rounded-lg p-4 space-y-3 shadow-lg">
+          <Link
+            href="#about"
+            className="block hover:text-blue-200 hover:underline"
+            onClick={() => setIsOpen(false)}
+          >
+            ABOUT
+          </Link>
+          <Link
+            href="#company_project"
+            className="block hover:text-blue-200 hover:underline"
+            onClick={() => setIsOpen(false)}
+          >
+            EXPERIENCE
+          </Link>
+          <Link
+            href="#academic_projects"
+            className="block hover:text-blue-200 hover:underline"
+            onClick={() => setIsOpen(false)}
+          >
+            PROJECTS
+          </Link>
+          <Link
+            href="#contact"
+            className="block hover:text-blue-200 hover:underline"
+            onClick={() => setIsOpen(false)}
+          >
+            CONTACT
+          </Link>
+        </nav>
+      )}
+    </header>
 
       <section id="about" className="bg-[#101828] text-white py-16 px-6">
         <div className="max-w-4xl mx-auto space-y-6">
@@ -342,7 +408,7 @@ export default function Home() {
       <input
         type="text"
         name="mail"
-        placeholder="Mail"
+        placeholder="Your Mail"
         value={form.mail}
         onChange={handleChange}
         className="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-amber-400 text-white placeholder-gray-400"
