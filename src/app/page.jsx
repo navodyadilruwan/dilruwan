@@ -45,8 +45,8 @@ export default function Home() {
         </Link>
 
         {/* Desktop Menu */}
-        <nav className="hidden md:flex space-x-6">
-          <Link href="#about" className="font-amber hover:text-blue-200 hover:underline">
+        <nav className="hidden text- md:flex space-x-6">
+          <Link href="#about" className=" hover:text-blue-200 hover:underline">
             ABOUT
           </Link>
           <Link href="#company_project" className="hover:text-blue-200 hover:underline">
