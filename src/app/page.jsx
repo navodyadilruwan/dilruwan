@@ -135,9 +135,10 @@ export default function Home() {
           </h3>
 
           <p className="text-gray-300">
-            Kadolla Junction Wathugedara, Thota Wathugedara
+            Address  :-  Kadolla Junction Wathugedara,
+                    Thota Wathugedara.
             <br />
-            +94 751217434
+            Mobile   :- +94 751217434
           </p>
 
           <p className="text-gray-300 leading-relaxed">
