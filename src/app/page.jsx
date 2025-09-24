@@ -5,6 +5,8 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false); // mobile menu
+
   const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState({ subject: "", message: "" });
   const [status, setStatus] = useState("");
@@ -61,7 +63,7 @@ export default function Home() {
         {/* Mobile Hamburger */}
         <button
           className="md:hidden flex items-center focus:outline-none"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setMenuOpen(!menuOpen)}
         >
           <svg
             className="w-6 h-6"
@@ -70,7 +72,7 @@ export default function Home() {
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            {isOpen ? (
+            {menuOpen ? (
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -90,33 +92,33 @@ export default function Home() {
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
+      {menuOpen && (
         <nav className="md:hidden bg-[#101828]/95 backdrop-blur-sm mt-2 rounded-lg p-4 space-y-3 shadow-lg">
           <Link
             href="#about"
             className="block hover:text-blue-200 hover:underline"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setMenuOpen(false)}
           >
             ABOUT
           </Link>
           <Link
             href="#company_project"
             className="block hover:text-blue-200 hover:underline"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setMenuOpen(false)}
           >
             EXPERIENCE
           </Link>
           <Link
             href="#academic_projects"
             className="block hover:text-blue-200 hover:underline"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setMenuOpen(false)}
           >
             PROJECTS
           </Link>
           <Link
             href="#contact"
             className="block hover:text-blue-200 hover:underline"
-            onClick={() => setIsOpen(false)}
+            onClick={() => setMenuOpen(false)}
           >
             CONTACT
           </Link>
