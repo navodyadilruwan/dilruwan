@@ -36,27 +36,27 @@ export default function Home() {
 
   return (
     <>
-      <header className="bg-[#101828] text-white px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="#" className="text-xl font-bold hover:text-blue-200">
-            Navodya Dilruwan
-          </Link>
-          <nav className="flex space-x-6">
-            <Link href="#about" className="font-amber hover:text-blue-200 hover:underline">
-              ABOUT
-            </Link>
-            <Link href="#company_project" className="hover:text-blue-200 hover:underline">
-              EXPERIENCE
-            </Link>
-            <Link href="#academic_projects" className="hover:text-blue-200 hover:underline">
-              PROJECTS
-            </Link>
-            <Link href="#contact" className="hover:text-blue-200 hover:underline">
-              CONTACT
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#101828]/90 backdrop-blur-sm text-white px-6 py-4 shadow-md">
+  <div className="max-w-7xl mx-auto flex items-center justify-between">
+    <Link href="#" className="text-xl font-bold hover:text-blue-200">
+      Navodya Dilruwan
+    </Link>
+    <nav className="flex space-x-6">
+      <Link href="#about" className="font-amber hover:text-blue-200 hover:underline">
+        ABOUT
+      </Link>
+      <Link href="#company_project" className="hover:text-blue-200 hover:underline">
+        EXPERIENCE
+      </Link>
+      <Link href="#academic_projects" className="hover:text-blue-200 hover:underline">
+        PROJECTS
+      </Link>
+      <Link href="#contact" className="hover:text-blue-200 hover:underline">
+        CONTACT
+      </Link>
+    </nav>
+  </div>
+</header>
 
       <section id="about" className="bg-[#101828] text-white py-16 px-6">
         <div className="max-w-4xl mx-auto space-y-6">
