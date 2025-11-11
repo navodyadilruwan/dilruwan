@@ -97,10 +97,10 @@ export default function Portfolio() {
   ];
 
   const acadamicprojects = [
-    { title: "Online Property Sales System", desc: "Real estate platform with user authentication...", tech: "Next.js | Drizzle ORM | PostgreSQL", features: ["Auth", "Search", "Admin"], live: "#", github: "#" },
-    { title: "Online Music Store", desc: "E-commerce platform for music sales...", tech: "Next.js | Drizzle ORM | PostgreSQL", features: ["Cart", "Payment", "Profiles"], live: "#", github: "#" },
-    { title: "Gym Management System", desc: "Mobile app for gym operations...", tech: "React Native | Firebase", features: ["Tracking", "Plans", "Payments"], live: "#", github: "#" },
-    { title: "Pharmacy Management System", desc: "Full-stack pharmacy system...", tech: "React | Node.js | MySQL", features: ["Inventory", "Sales", "Reports"], live: "#", github: "#" },
+    { title: "Online Property Sales System", desc: "Real estate platform with user authentication...", tech: "HTML | CSS | MySql", features: ["Auth", "Search", "Admin"], live: "#", github: "#" },
+    { title: "Online Music Store", desc: "E-commerce platform for music sales...", tech: "HTML | CSS | MySql", features: ["Cart", "search", "Profiles"], live: "#", github: "#" },
+    { title: "Gym Management System", desc: "Mobile app for gym operations...", tech: "java | Kotlin", features: ["easy get schaduls", "Plans", "Payments"], live: "#", github: "#" },
+    { title: "Pharmacy Management System", desc: "Full-stack pharmacy system...", tech: "React | Node.js | mongoDB", features: ["Inventory", "Sales", "Reports"], live: "#", github: "#" },
   ];
 
   const navItems = [
@@ -203,7 +203,7 @@ export default function Portfolio() {
             {[
               { title: "Undergraduate Student", subtitle: "SLIIT", desc: "BSc (Hons) IT - Software Engineering" },
               { title: "IT Diploma", subtitle: "SLTC", desc: "Completed" },
-              { title: "Graphic Design Diploma", subtitle: "OSLOT", desc: "Completed" },
+              { title: "Graphic Design Diploma", subtitle: "OSLO", desc: "Completed" },
               { title: "Software Dev Intern", subtitle: "DONEXT", desc: "Full-stack projects" },
             ].map((item, i) => (
               <div key={i} className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-cyan-500/30 hover:border-cyan-400 hover:scale-105 transition">
@@ -270,7 +270,7 @@ export default function Portfolio() {
             </button>
           </div>
           <p className="text-gray-400 text-sm">
-            © 2025 Navodya Dilruwan. Crafted with <span className="text-red-500">Heart</span> in Negombo, Sri Lanka
+            © 2025 Navodya Dilruwan.  <span className="text-red-500"></span>Balapitiya, Sri Lanka
           </p>
         </div>
       </footer>
