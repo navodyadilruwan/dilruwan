@@ -1,457 +1,351 @@
-
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import {
+  Menu, X, Mail, Phone, MapPin, Github, Linkedin,
+  ExternalLink, ArrowLeft, Send
+} from "lucide-react";
 
-export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false); // mobile menu
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [form, setForm] = useState({ subject: "", message: "" });
+export default function Portfolio() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [form, setForm] = useState({ subject: "", email: "", message: "" });
   const [status, setStatus] = useState("");
+  const [activeSection, setActiveSection] = useState("home");
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const sectionRefs = useRef({});
 
-  const handleSend = async () => {
+  // FIXED: Only ONE handleSubmit (real email version)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setStatus("Sending...");
+
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          subject: form.subject,
+          email: form.email,
+          message: form.message,
+        }),
       });
 
-      if (res.ok) {
-        setStatus("✅ Message sent successfully!");
-        setForm({ subject: "", message: "" });
-        setIsOpen(false);
+      const data = await res.json();
+
+      if (data.success) {
+        setStatus("Message sent successfully! I'll reply soon");
+        setTimeout(() => {
+          setIsModalOpen(false);
+          setForm({ subject: "", email: "", message: "" });
+          setStatus("");
+        }, 3000);
       } else {
-        setStatus("❌ Failed to send message.");
+        setStatus("Failed to send. Please try again.");
       }
     } catch (err) {
-      setStatus("⚠️ Error sending message: " + err.message);
+      setStatus("Network error. Check your connection.");
     }
   };
 
+  // Active section detection
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px", threshold: 0 }
+    );
+
+    Object.values(sectionRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      Object.values(sectionRefs.current).forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, []);
+
+  const scrollToSection = (id) => {
+    sectionRefs.current[id]?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
+  };
+
+  const openContact = () => {
+    setIsModalOpen(true);
+    setMenuOpen(false);
+  };
+
+  const openProject = (proj) => setSelectedProject(proj);
+  const closeProject = () => setSelectedProject(null);
+
+  const companyprojects = [
+    { title: "BLOONSOO", desc: "Hotel Management System with room booking, payment handling...", tech: "Next.js | Drizzle ORM | PostgreSQL", features: ["Room Booking", "Payment Gateway", "Staff Panel"], live: "#", github: "#" },
+    { title: "My Universe", desc: "University search & admission platform...", tech: "Next.js | Drizzle ORM | PostgreSQL", features: ["Role-based Access", "Search", "Applications"], live: "#", github: "#" },
+    { title: "Kid Link", desc: "Children Management System...", tech: "Next.js | Drizzle ORM | PostgreSQL", features: ["Parent Portal", "Scheduling", "Tracking"], live: "#", github: "#" },
+    { title: "E-Jobs", desc: "Job Search & Recruitment Platform...", tech: "Next.js | Drizzle ORM | PostgreSQL", features: ["Filters", "Applications", "Dashboard"], live: "#", github: "#" },
+    { title: "Taxi App", desc: "Ride booking & vehicle registration...", tech: "Next.js | Drizzle ORM | PostgreSQL", features: ["Real-time", "Booking", "Payments"], live: "#", github: "#" },
+    { title: "CBL Natural food ", desc: "CBL pvt Ltd web site frontend changes and UI Desing", tech: "React.js | TailwindCSS | Figma", features: ["Social media side box", "certificate page", "new features"], live: "#", github: "#" },
+   
+  ];
+
+  const acadamicprojects = [
+    { title: "Online Property Sales System", desc: "Real estate platform with user authentication...", tech: "Next.js | Drizzle ORM | PostgreSQL", features: ["Auth", "Search", "Admin"], live: "#", github: "#" },
+    { title: "Online Music Store", desc: "E-commerce platform for music sales...", tech: "Next.js | Drizzle ORM | PostgreSQL", features: ["Cart", "Payment", "Profiles"], live: "#", github: "#" },
+    { title: "Gym Management System", desc: "Mobile app for gym operations...", tech: "React Native | Firebase", features: ["Tracking", "Plans", "Payments"], live: "#", github: "#" },
+    { title: "Pharmacy Management System", desc: "Full-stack pharmacy system...", tech: "React | Node.js | MySQL", features: ["Inventory", "Sales", "Reports"], live: "#", github: "#" },
+  ];
+
+  const navItems = [
+    { id: "home", label: "Home" },
+    { id: "education", label: "Education" },
+    { id: "academic", label: "Academic Projects" },
+    { id: "projects", label: "Company Projects" },
+    
+  ];
+
   return (
     <>
-<header className="fixed top-0 left-0 right-0 z-50 bg-[#101828]/90 backdrop-blur-sm text-white px-6 py-4 shadow-md">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href="#" className="text-xl font-bold hover:text-blue-200">
-          Navodya Dilruwan
-        </Link>
-
-        {/* Desktop Menu */}
-        <nav className="hidden text- md:flex space-x-6">
-          <Link href="#about" className=" hover:text-blue-200 hover:underline">
-            ABOUT
-          </Link>
-          <Link href="#company_project" className="hover:text-blue-200 hover:underline">
-            EXPERIENCE
-          </Link>
-          <Link href="#academic_projects" className="hover:text-blue-200 hover:underline">
-            PROJECTS
-          </Link>
-          <Link href="#contact" className="hover:text-blue-200 hover:underline">
-            CONTACT
-          </Link>
-        </nav>
-
-        {/* Mobile Hamburger */}
-        <button
-          className="md:hidden flex items-center focus:outline-none"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {menuOpen ? (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            ) : (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            )}
-          </svg>
-        </button>
+      {/* Background */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-900 via-cyan-900 to-emerald-900" />
+        <img src="/back.jpg" alt="bg" className="w-full h-full object-cover opacity-40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/40" />
       </div>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <nav className="md:hidden bg-[#101828]/95 backdrop-blur-sm mt-2 rounded-lg p-4 space-y-3 shadow-lg">
-          <Link
-            href="#about"
-            className="block hover:text-blue-200 hover:underline"
-            onClick={() => setMenuOpen(false)}
-          >
-            ABOUT
-          </Link>
-          <Link
-            href="#company_project"
-            className="block hover:text-blue-200 hover:underline"
-            onClick={() => setMenuOpen(false)}
-          >
-            EXPERIENCE
-          </Link>
-          <Link
-            href="#academic_projects"
-            className="block hover:text-blue-200 hover:underline"
-            onClick={() => setMenuOpen(false)}
-          >
-            PROJECTS
-          </Link>
-          <Link
-            href="#contact"
-            className="block hover:text-blue-200 hover:underline"
-            onClick={() => setMenuOpen(false)}
-          >
-            CONTACT
-          </Link>
-        </nav>
-      )}
-    </header>
-
-      <section id="about" className="bg-[#101828] text-white py-16 px-6">
-        <div className="max-w-4xl mx-auto space-y-6">
-          <h1 className="text-4xl font-bold">Navodya Dilruwan</h1>
-          <h2 className="text-2xl font-semibold">Full-Stack Developer</h2>
-          <h3 className="text-lg font-light">
-            I build scalable, accessible web applications that blend thoughtful design with robust engineering.
-          </h3>
-
-          <p className="text-gray-300">
-            Address  :-  Kadolla Junction Wathugedara,
-                    Thota Wathugedara.
-            <br />
-            Mobile   :- +94 751217434
-          </p>
-
-          <p className="text-gray-300 leading-relaxed">
-            I am an enthusiastic and reliable Full-Stack Developer with strong problem-solving skills and a passion for building scalable applications.
-            Currently pursuing my BSc (Hons) Information Technology specializing in Software Engineering at Sri Lanka Institute of Information Technology.
-            With hands-on experience in both frontend (Next.js, React) and backend (Bun, Hono, Drizzle ORM, PostgreSQL) development, I am adaptable to challenging situations, a mature team player, and committed to delivering high-quality solutions. I am eager to continuously learn new technologies and contribute effectively to any team or project.
-          </p>
-
-          <div className="mt-8 space-y-4">
-            
-
-            <div className="flex flex-wrap gap-3 mt-4">
-              <span className="bg-amber-500 text-black px-3 py-1 rounded-full text-sm">Next.js</span>
-              <span className="bg-amber-500 text-black px-3 py-1 rounded-full text-sm">React</span>
-              <span className="bg-amber-500 text-black px-3 py-1 rounded-full text-sm">TypeScript</span>
-              <span className="bg-amber-500 text-black px-3 py-1 rounded-full text-sm">Node.js</span>
-              <span className="bg-amber-500 text-black px-3 py-1 rounded-full text-sm">PostgreSQL</span>
-            </div>
-          </div>
+      {/* Floating Email Button */}
+      <button
+        onClick={openContact}
+        className="fixed right-6 bottom-8 z-50 group"
+        title="Send me an email"
+      >
+        <div className="p-4 bg-white/10 backdrop-blur-xl rounded-full border border-cyan-500/50 hover:border-cyan-400 hover:bg-white/20 transition-all hover:scale-125 shadow-2xl">
+          <Mail size={28} className="text-cyan-400 group-hover:animate-pulse" />
         </div>
-      </section>
-<section id="education" className="bg-gray-900 text-white py-16 px-6">
-  <div className="max-w-6xl mx-auto">
-    {/* Section Title */}
-    <h1 className="text-4xl font-bold text-center mb-12">Education & Certifications</h1>
+      </button>
 
-    <div className="mt-12 grid gap-8 md:grid-cols-1">
-      {/* Education */}
-      <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-        <h3 className="text-xl font-semibold text-amber-400 mb-3">Undergraduate Student</h3>
-        <p className="text-gray-300 mb-1">Sri Lanka Institute of Information Technology (SLIIT) • Ongoing</p>
-        <p className="text-gray-400 text-sm">Pursuing BSc (Hons) Information Technology specializing in Software Engineering</p>
-      </div>
-<div className="grid gap-8 md:grid-cols-2">
-  <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-        <h3 className="text-xl font-semibold text-amber-400 mb-3">IT Diploma</h3>
-        <p className="text-gray-300 mb-1">Sri Lanka Technological Campus (SLTC) • Completed</p>
-      </div>
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-40 backdrop-blur-xl bg-black/50 border-b border-cyan-500/30">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+          <h1 onClick={() => scrollToSection("home")} className="text-2xl font-bold text-cyan-400 cursor-pointer hover:text-cyan-300 transition">
+            Navodya Dilruwan
+          </h1>
 
-      <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-        <h3 className="text-xl font-semibold text-amber-400 mb-3">Graphic Design Diploma</h3>
-        <p className="text-gray-300 mb-1">OSLO IT • Completed</p>
-      </div>
-    </div>
-</div>
-      
-
-    {/* Experience / Internships */}
-    <div className="mt-12 grid gap-8 md:grid-cols-1">
-      <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-        <h3 className="text-xl font-semibold text-amber-400 mb-3">Software Development Intern</h3>
-        <p className="text-gray-300 mb-1">DONEXT Company • Present</p>
-        <p className="text-gray-400 text-sm">
-          Working on various full-stack projects including hotel booking systems, university management platforms, mobile applications, and job portals. Gaining hands-on experience with modern web technologies.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-      <section id="academic_projects" className="bg-gray-900 text-white py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold text-center mb-12">Academic Projects</h1>
-          <div className="mb-8">
-            <h2 className="text-2xl font-semibold text-amber-400">SLIIT University</h2>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-2">
-            <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-              <h3 className="text-xl font-semibold">Online Property Sales System</h3>
-              <p className="mt-2 text-gray-300">
-                Web-based property management and sales platform with user authentication and property listings.
-              </p>
-              <p className="mt-3 text-sm text-amber-300">HTML • CSS • JavaScript</p>
-            </div>
-
-            <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-              <h3 className="text-xl font-semibold">Online Music Store</h3>
-              <p className="mt-2 text-gray-300">
-                E-commerce platform for music sales with shopping cart functionality and user management.
-              </p>
-              <p className="mt-3 text-sm text-amber-300">Java • JSP • Servlet</p>
-            </div>
-
-            <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-              <h3 className="text-xl font-semibold">Gym Management System</h3>
-              <p className="mt-2 text-gray-300">
-                Mobile application for gym operations management with member tracking and workout scheduling.
-              </p>
-              <p className="mt-3 text-sm text-amber-300">Figma • Flutter</p>
-            </div>
-
-            <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-              <h3 className="text-xl font-semibold">Pharmacy Management System</h3>
-              <p className="mt-2 text-gray-300">
-                Full-stack developed website with customer management and API testing.
-              </p>
-              <p className="mt-3 text-sm text-amber-300">React • MongoDB • Postman • Tailwind CSS</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="company_project" className="bg-gray-900 text-white py-16 px-6">
-  <div className="max-w-6xl mx-auto">
-    {/* Section Title */}
-    <h1 className="text-4xl font-bold text-center mb-12">Company Projects</h1>
-
-    {/* Company Info */}
-    <div className="mb-10 text-center">
-      <h2 className="text-2xl font-semibold text-amber-400">DONEXT</h2>
-      <h3 className="text-lg text-gray-300">Full-Stack Development Projects</h3>
-    </div>
-
-    {/* Projects Grid */}
-    <div className="grid gap-8 md:grid-cols-2">
-      {/* Project 1 */}
-      <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-        <h2 className="text-xl font-semibold">BLOONSOO</h2>
-        <h3 className="text-lg text-gray-300">Hotel Management System</h3>
-        <p className="mt-2 text-gray-300">
-          Full-stack hotel management system with room booking, payment handling, policies, and staff management. 
-          Built with Drizzle ORM + PostgreSQL and secure session-based authentication.
-        </p>
-        <p className="mt-3 text-sm text-amber-300">Next.js • Drizzle ORM • PostgreSQL</p>
-      </div>
-
-      {/* Project 2 */}
-      <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-        <h2 className="text-xl font-semibold">My Universe</h2>
-        <h3 className="text-lg text-gray-300">University Registration Platform</h3>
-        <p className="mt-2 text-gray-300">
-          Platform for university search and admission registration with role-based access control for students 
-          and university admins. Includes application tracking and course management APIs.
-        </p>
-        <p className="mt-3 text-sm text-amber-300">Next.js • Drizzle ORM • PostgreSQL</p>
-      </div>
-
-      {/* Project 3 */}
-      <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-        <h2 className="text-xl font-semibold">Kid Link</h2>
-        <h3 className="text-lg text-gray-300">Hotel Management System</h3>
-        <p className="mt-2 text-gray-300">
-          Full-stack hotel management system with room booking, payment handling, policies, and staff management. 
-          Built with Drizzle ORM + PostgreSQL and secure session-based authentication.
-        </p>
-        <p className="mt-3 text-sm text-amber-300">Next.js • Drizzle ORM • PostgreSQL</p>
-      </div>
-      {/* Project 3 */}
-      <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-        <h2 className="text-xl font-semibold">E-Jobs</h2>
-        <h3 className="text-lg text-gray-300">Job Search & Recruitment Platform</h3>
-        <p className="mt-2 text-gray-300">
-          Job search platform with advanced search & filter functionalities. Includes employer dashboards and candidate profile management systems.
-        </p>
-        <p className="mt-3 text-sm text-amber-300">Next.js • Drizzle ORM • PostgreSQL</p>
-      </div>
-      <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-        <h2 className="text-xl font-semibold">Taxi App</h2>
-        <h3 className="text-lg text-gray-300"> Ride Booking & Vehicle Registration</h3>
-        <p className="mt-2 text-gray-300">
-          Created a full-stack taxi booking system where users can book rides and drivers can register vehicles.Integrated real-time ride management with booking history and payment tracking. Built scalable backend APIs with Drizzle ORM & PostgreSQL.
-        </p>
-        <p className="mt-3 text-sm text-amber-300">Next.js • Drizzle ORM • PostgreSQL</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-      <section id="technical_skill" className="bg-gray-900 text-white py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold text-center mb-12">Technical Skills</h1>
-
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-              <h3 className="text-xl font-semibold text-amber-400 mb-3">Frontend</h3>
-              <ul className="text-gray-300 space-y-1">
-                <li>React.js</li>
-                <li>Next.js</li>
-                <li>React Native</li>
-                <li>HTML/CSS</li>
-                <li>Tailwind CSS</li>
-                <li>Bootstrap</li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-              <h3 className="text-xl font-semibold text-amber-400 mb-3">Backend</h3>
-              <ul className="text-gray-300 space-y-1">
-                <li>Node.js</li>
-                <li>Express.js</li>
-                <li>Bun + Hono</li>
-                <li>Java</li>
-                <li>C</li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-              <h3 className="text-xl font-semibold text-amber-400 mb-3">Database</h3>
-              <ul className="text-gray-300 space-y-1">
-                <li>PostgreSQL</li>
-                <li>MongoDB</li>
-                <li>MySQL</li>
-                <li>Drizzle ORM</li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-amber-400/40 transition">
-              <h3 className="text-xl font-semibold text-amber-400 mb-3">Tools</h3>
-              <ul className="text-gray-300 space-y-1">
-                <li>Git</li>
-                <li>Postman</li>
-                <li>BetterAuth API</li>
-                <li>Scalar API Reference</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="bg-gray-900 text-white py-16 px-6">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h1 className="text-4xl font-bold">Let's Connect</h1>
-          <p className="text-gray-300 text-lg">
-            I'm always interested in discussing new opportunities, innovative projects, or just connecting with fellow developers.
-            Feel free to reach out if you'd like to collaborate or chat about technology.
-          </p>
-
-          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-            <a
-              href="https://wa.me/94751217434?text=Hello%20Navodya!%20I%20want%20to%20connect."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#ffb900] hover:bg-[#f7c340] px-6 py-3 rounded-full text-sm font-medium transition-colors"
-            >
-              Whats App
-            </a>
-            <a
-              href="https://www.linkedin.com/in/your-linkedin"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#ffb900] hover:bg-[#f7c340] px-6 py-3 rounded-full text-sm font-medium transition-colors"
-            >
-              Connect on LinkedIn
-            </a>
-            <button
-              onClick={() => setIsOpen(true)}
-              className="bg-[#ffb900] hover:bg-[#f7c340] px-6 py-3 rounded-full text-sm font-medium transition-colors"
-            >
-              E-mail
+          <div className="hidden md:flex items-center gap-10">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`text-lg font-medium transition pb-2 relative ${
+                  activeSection === item.id ? "text-cyan-400" : "text-white hover:text-cyan-300"
+                }`}
+              >
+                {item.label}
+                {activeSection === item.id && (
+                  <span className="absolute bottom-0 left-0 right-0 h-1 bg-cyan-400 rounded-full" />
+                )}
+              </button>
+            ))}
+            <button onClick={openContact} className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 rounded-full text-black font-bold transition">
+              Hire Me
             </button>
           </div>
+
+          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-3 bg-white/10 backdrop-blur rounded-full text-white hover:bg-white/20 transition z-50">
+            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
-      </section>
+      </nav>
 
-      {isOpen && (
-  <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-    <div className="bg-[#121922] rounded-2xl shadow-2xl w-96 p-8 relative">
-      <h2 className="text-2xl font-bold text-white mb-6 text-center">Send me an Email</h2>
-
-      <input
-        type="text"
-        name="subject"
-        placeholder="Subject"
-        value={form.subject}
-        onChange={handleChange}
-        className="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-amber-400 text-white placeholder-gray-400"
-        required
-      />
-      <input
-        type="text"
-        name="mail"
-        placeholder="Your Mail"
-        value={form.mail}
-        onChange={handleChange}
-        className="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-amber-400 text-white placeholder-gray-400"
-        required
-      />
-
-      <textarea
-        name="message"
-        placeholder="Your message"
-        value={form.message}
-        onChange={handleChange}
-        rows="5"
-        className="w-full border border-gray-300 rounded-lg p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-amber-400 text-white placeholder-gray-400 resize-none"
-        required
-      />
-
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={() => setIsOpen(false)}
-          className="flex-1 mr-2 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-5 py-2 rounded-xl transition"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={handleSend}
-          className="flex-1 ml-2 bg-amber-500 hover:bg-amber-400 text-white font-semibold px-5 py-2 rounded-xl transition"
-        >
-          Send
-        </button>
+      {/* Mobile Menu */}
+      <div className={`fixed top-0 right-0 h-full w-80 bg-black/70 backdrop-blur-2xl transform transition-transform duration-500 z-50 md:hidden ${menuOpen ? "translate-x-0" : "translate-x-full"}`}>
+        <div className="flex flex-col items-center justify-center h-full space-y-10 text-white">
+          {navItems.map((item) => (
+            <button key={item.id} onClick={() => scrollToSection(item.id)} className={`text-2xl font-medium transition ${activeSection === item.id ? "text-cyan-400" : "hover:text-cyan-300"}`}>
+              {item.label}
+            </button>
+          ))}
+          <button onClick={openContact} className="px-8 py-4 bg-cyan-500 rounded-full hover:bg-cyan-400 transition text-black font-bold">
+            Hire Me
+          </button>
+        </div>
       </div>
 
-      {status && (
-        <p className="mt-4 text-center text-sm text-gray-600">
-          {status}
-        </p>
-      )}
-    </div>
-  </div>
-)}
+      {/* Main Content */}
+      <div className="pt-24 min-h-screen text-white px-6 max-w-7xl mx-auto">
+        <section id="home" ref={el => sectionRefs.current.home = el} className="min-h-screen flex flex-col justify-center items-center text-center">
+          <h1 className="text-6xl md:text-8xl font-bold text-cyan-400 mb-4">Navodya Dilruwan</h1>
+          <p className="text-3xl md:text-5xl mb-8 text-cyan-300">Full-Stack Developer</p>
+          <p className="text-lg md:text-xl max-w-3xl leading-relaxed mb-10">
+            I build scalable, accessible web applications that blend thoughtful design with robust engineering.
+          </p>
+          <div className="space-y-4 text-lg">
+            <p className="flex items-center justify-center gap-3"><MapPin /> Kadawala Junction, Wattugedara</p>
+            <p className="flex items-center justify-center gap-3"><Phone /> +94 75 124 7434</p>
+            <p className="flex items-center justify-center gap-3"><Mail /> navodhyadilruwan@gmail.com</p>
+          </div>
+          <div className="flex gap-6 mt-10">
+            <a href="https://github.com/navodyadilruwan" target="_blank" className="p-4 bg-white/10 backdrop-blur rounded-full hover:bg-white/20 transition"><Github size={28} /></a>
+            <a href="https://www.linkedin.com/in/navodya-dilruwan/" target="_blank" className="p-4 bg-white/10 backdrop-blur rounded-full hover:bg-white/20 transition"><Linkedin size={28} /></a>
+          </div>
+        </section>
 
+        <section id="education" ref={el => sectionRefs.current.education = el} className="py-20">
+          <h2 className="text-5xl font-bold text-cyan-400 mb-12 text-center">Education & Certifications</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { title: "Undergraduate Student", subtitle: "SLIIT", desc: "BSc (Hons) IT - Software Engineering" },
+              { title: "IT Diploma", subtitle: "SLTC", desc: "Completed" },
+              { title: "Graphic Design Diploma", subtitle: "OSLOT", desc: "Completed" },
+              { title: "Software Dev Intern", subtitle: "DONEXT", desc: "Full-stack projects" },
+            ].map((item, i) => (
+              <div key={i} className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-cyan-500/30 hover:border-cyan-400 hover:scale-105 transition">
+                <h3 className="text-2xl font-bold text-cyan-300">{item.title}</h3>
+                <p className="text-cyan-200 mt-2">{item.subtitle}</p>
+                <p className="text-sm mt-4 text-gray-300">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        
+        <section id="academic" ref={el => sectionRefs.current.academic = el} className="py-20">
+          <h2 className="text-5xl font-bold text-cyan-400 mb-4">Academic Projects</h2>
+          <p className="text-xl text-cyan-200 mb-12">Projects from SLIIT studies</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {acadamicprojects.map((proj, i) => (
+              <div key={i} onClick={() => openProject(proj)} className="group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border border-cyan-500/30 hover:border-cyan-400 cursor-pointer hover:scale-105 transition">
+                <div className="h-56 bg-gradient-to-br from-cyan-600 to-teal-800 opacity-70 group-hover:opacity-90 transition" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="absolute bottom-0 p-6">
+                  <h3 className="text-2xl font-bold text-cyan-300">{proj.title}</h3>
+                  <p className="text-sm mt-2 text-gray-200 line-clamp-2">{proj.desc}</p>
+                  <p className="text-xs mt-4 text-cyan-400 flex items-center gap-2">{proj.tech} <ExternalLink size={16} /></p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="projects" ref={el => sectionRefs.current.projects = el} className="py-20">
+          <h2 className="text-5xl font-bold text-cyan-400 mb-4">Company Projects</h2>
+          <p className="text-xl text-cyan-200 mb-12">Real-world projects built for clients</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {companyprojects.map((proj, i) => (
+              <div key={i} onClick={() => openProject(proj)} className="group relative bg-white/10 backdrop-blur-lg rounded-2xl overflow-hidden border border-cyan-500/30 hover:border-cyan-400 cursor-pointer hover:scale-105 transition">
+                <div className="h-56 bg-gradient-to-br from-cyan-600 to-teal-800 opacity-70 group-hover:opacity-90 transition" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="absolute bottom-0 p-6">
+                  <h3 className="text-2xl font-bold text-cyan-300">{proj.title}</h3>
+                  <p className="text-sm mt-2 text-gray-200 line-clamp-2">{proj.desc}</p>
+                  <p className="text-xs mt-4 text-cyan-400 flex items-center gap-2">{proj.tech} <ExternalLink size={16} /></p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-black/60 backdrop-blur-xl border-t border-cyan-500/30 py-12 mt-20">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h3 className="text-3xl font-bold text-cyan-400 mb-8">Let's Connect</h3>
+          <div className="flex justify-center gap-10 mb-8">
+            <a href="https://github.com/navodyadilruwan" target="_blank" rel="noopener noreferrer" className="group p-5 bg-white/10 backdrop-blur rounded-full hover:bg-white/20 transition hover:scale-110">
+              <Github size={32} className="text-white group-hover:text-cyan-400 transition" />
+            </a>
+            <a href="https://www.linkedin.com/in/navodya-dilruwan/" target="_blank" rel="noopener noreferrer" className="group p-5 bg-white/10 backdrop-blur rounded-full hover:bg-white/20 transition hover:scale-110">
+              <Linkedin size={32} className="text-white group-hover:text-cyan-400 transition" />
+            </a>
+            <button onClick={openContact} className="group p-5 bg-white/10 backdrop-blur rounded-full hover:bg-white/20 transition hover:scale-110">
+              <Mail size={32} className="text-white group-hover:text-cyan-400 transition" />
+            </button>
+          </div>
+          <p className="text-gray-400 text-sm">
+            © 2025 Navodya Dilruwan. Crafted with <span className="text-red-500">Heart</span> in Negombo, Sri Lanka
+          </p>
+        </div>
+      </footer>
+
+      {/* Project Modal */}
+      {selectedProject && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-2xl z-50 flex items-center justify-center p-6" onClick={closeProject}>
+          <div className="bg-white/10 backdrop-blur-3xl rounded-3xl p-10 max-w-4xl w-full border border-cyan-400/60 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <button onClick={closeProject} className="absolute top-6 left-6 p-3 bg-white/20 rounded-full hover:bg-white/30"><ArrowLeft size={28} /></button>
+            <button onClick={closeProject} className="absolute top-6 right-6 p-3 bg-white/20 rounded-full hover:bg-white/30"><X size={28} /></button>
+            <h2 className="text-5xl font-bold text-cyan-300 text-center mb-6">{selectedProject.title}</h2>
+            <p className="text-xl text-cyan-200 text-center mb-8">{selectedProject.tech}</p>
+            <div className="grid md:grid-cols-2 gap-10 mb-10">
+              <div><h3 className="text-2xl font-bold text-cyan-400 mb-4">Description</h3><p className="text-gray-200">{selectedProject.desc}</p></div>
+              <div><h3 className="text-2xl font-bold text-cyan-400 mb-4">Features</h3>
+                <ul className="space-y-3">
+                  {selectedProject.features.map((f, i) => (
+                    <li key={i} className="flex items-center gap-3 text-gray-200">
+                      <div className="w-2 h-2 bg-cyan-400 rounded-full" />{f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="flex justify-center gap-6">
+              <a href={selectedProject.live} target="_blank" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 rounded-full font-bold flex items-center gap-3 transition">
+                <ExternalLink size={20} /> Live Demo
+              </a>
+              <a href={selectedProject.github} target="_blank" className="px-8 py-4 bg-white/20 hover:bg-white/30 rounded-full font-bold flex items-center gap-3 backdrop-blur transition border border-cyan-400">
+                <Github size={20} /> Source Code
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Contact Form Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-2xl z-50 flex items-center justify-center p-6">
+          <div className="bg-gradient-to-br from-teal-900 to-cyan-900 rounded-3xl p-10 max-w-lg w-full relative border border-cyan-400 shadow-2xl">
+            <button onClick={() => setIsModalOpen(false)} className="absolute top-4 right-4 text-white hover:text-cyan-300"><X size={32} /></button>
+            <h2 className="text-4xl font-bold text-cyan-300 mb-8 text-center">Send Me a Message</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <input
+                type="text"
+                placeholder="Your Name / Subject"
+                required
+                value={form.subject}
+                onChange={e => setForm({...form, subject: e.target.value})}
+                className="w-full px-6 py-4 rounded-xl bg-white/10 border border-cyan-500/50 placeholder-gray-400 focus:border-cyan-400 focus:outline-none transition text-white"
+              />
+              <input
+                type="email"
+                placeholder="your.email@example.com"
+                required
+                value={form.email}
+                onChange={e => setForm({...form, email: e.target.value})}
+                className="w-full px-6 py-4 rounded-xl bg-white/10 border border-cyan-500/50 placeholder-gray-400 focus:border-cyan-400 focus:outline-none transition text-white"
+              />
+              <textarea
+                placeholder="Your message..."
+                rows={6}
+                required
+                value={form.message}
+                onChange={e => setForm({...form, message: e.target.value})}
+                className="w-full px-6 py-4 rounded-xl bg-white/10 border border-cyan-500/50 placeholder-gray-400 focus:border-cyan-400 focus:outline-none transition resize-none text-white"
+              />
+              <button type="submit" className="w-full py-4 bg-cyan-500 hover:bg-cyan-400 transition font-bold text-black rounded-xl flex items-center justify-center gap-3">
+                <Send size={20} /> Send Message
+              </button>
+              {status && <p className="text-center text-cyan-300 font-semibold text-lg">{status}</p>}
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 }
