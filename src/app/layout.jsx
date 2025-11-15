@@ -1,17 +1,18 @@
 import "./globals.css";
 import Nav from "./components/Nav";
-import { Icon } from "lucide-react";
+import { Icons } from "lucide-react";
+
 
 
 export const metadata = {
   title: "Navodya Dilruwan",
-  Icon:{
-    icon: Icon,
-    image: "profile.jpg",
-
-  }
+  icons: {
+    icon: "/profile.jpg",
+  },
   
 };
+
+
 
 export default function RootLayout({ children }) {
   return (
