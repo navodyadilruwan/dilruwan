@@ -43,7 +43,7 @@ const projects = [
     id: 4,
     name: "E-Jobs",
     title: "Job management system",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&q=80",
+    image: "/ejob.png",
     description: "Advanced job search platform connecting talent with opportunities through intelligent filtering and candidate profiling.",
     technologies: ["React", "Node.js", "MongoDB"],
     live: "https://ejobs.example.com",
