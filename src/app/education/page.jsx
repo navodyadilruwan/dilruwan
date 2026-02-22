@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Award, Sparkles } from "lucide-react";
-
+import { Award, Calendar, Building2 } from "lucide-react";
 
 const education = [
   {
@@ -11,6 +10,7 @@ const education = [
     year: "2024 – Present",
     grade: "Ongoing (First Class Expected)",
     cert: "/certs/sliit.pdf",
+    description: "Specializing in Software Engineering with a focus on distributed systems, AI applications, and advanced web architectures."
   },
   {
     title: "Diploma in Information Technology",
@@ -18,6 +18,7 @@ const education = [
     year: "2023",
     grade: "Distinction Pass",
     cert: "/certs/sltc.pdf",
+    description: "Comprehensive study of data structures, algorithms, database management, and object-oriented programming methodologies."
   },
   {
     title: "Certificate in Graphic Design & UI/UX",
@@ -25,6 +26,7 @@ const education = [
     year: "2022",
     grade: "A+ Excellence",
     cert: "/certs/oslo.pdf",
+    description: "Mastered visual communication principles, user-centered design thinking, and proficiency in industry-standard design tools."
   },
   {
     title: "Full-Stack Development Internship",
@@ -32,111 +34,90 @@ const education = [
     year: "2024",
     grade: "Outstanding Performance",
     cert: "/certs/donext.pdf",
+    description: "Hands-on experience developing scalable web applications using the MERN stack and collaborating in an Agile environment."
   },
 ];
 
 export default function Education() {
   return (
-    <>
-      {/* DARK CINEMATIC BACKGROUND */}
-      <div className="fixed inset-0 overflow-hidden -z-10">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute object-cover w-full h-full"
-          src="/video1.mp4"
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
-      </div>
+    <section className="min-h-screen px-6 py-24 relative overflow-hidden flex flex-col justify-center">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px] -z-10 -translate-y-1/2" />
 
-      {/* Right Side Nav */}
-  
+      <div className="max-w-5xl mx-auto w-full">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="mb-20"
+        >
+          <h2 className="text-5xl md:text-7xl font-script tracking-wide text-white mb-6 drop-shadow-lg">
+            Education <span className="text-cyan-500 font-sans">.</span>
+          </h2>
+          <div className="h-1 w-32 bg-gradient-to-r from-cyan-500 to-transparent rounded-full" />
+        </motion.div>
 
-      {/* Floating Contact Button */}
-    
+        {/* Timeline Layout */}
+        <div className="relative border-l border-white/10 ml-4 md:ml-6 space-y-12">
+          {education.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="relative pl-8 md:pl-16"
+            >
+              {/* Timeline Dot */}
+              <span className="absolute -left-[5px] top-8 w-2.5 h-2.5 rounded-full bg-cyan-500 shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
 
-      {/* EDUCATION CONTENT */}
-      <section className="min-h-screen px-6 py-24 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-7xl">
-          {/* Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="mb-20 text-center"
-          >
-            <h1 className="text-6xl font-black tracking-tighter text-white md:text-8xl lg:text-7xl drop-shadow-2xl">
-              Education
-            </h1>
-            <p className="max-w-3xl mx-auto mt-8 text-xl font-light md:text-2xl text-white/60">
-              Building a strong foundation in technology, design, and real-world development
-            </p>
-          </motion.div>
+              {/* Card */}
+              <div className="group relative p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-white/10 hover:border-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-900/10">
+                <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
 
-          {/* Education Cards */}
-          <div className="grid max-w-5xl grid-cols-1 gap-10 mx-auto md:grid-cols-2">
-            {education.map((item, i) => (
-              <motion.a
-                key={i}
-                href={item.cert}
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15, duration: 0.8 }}
-                whileHover={{ y: -12, scale: 1.03 }}
-                className="block group"
-              >
-                <div className="relative p-8 overflow-hidden transition-all duration-500 border shadow-2xl bg-white/5 backdrop-blur-xl rounded-3xl md:p-10 border-white/10 hover:border-cyan-500/50">
-                  {/* Cyan Glow on Hover */}
-                  <div className="absolute inset-0 transition-opacity duration-700 opacity-0 bg-gradient-to-br from-cyan-500/20 to-transparent group-hover:opacity-100" />
-
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="p-4 border shadow-xl bg-cyan-500/20 border-cyan-500/40 rounded-2xl">
-                        <Award className="text-cyan-400" size={36} />
-                      </div>
-                      <Sparkles className="text-cyan-400 opacity-70" size={28} />
-                    </div>
-
-                    <h3 className="mb-3 text-2xl font-bold text-white md:text-3xl">
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 className="text-2xl md:text-3xl font-bold italic text-white mb-2 group-hover:text-cyan-400 transition-colors">
                       {item.title}
                     </h3>
-                    <p className="mb-2 text-lg font-semibold md:text-xl text-cyan-400">
-                      {item.org}
-                    </p>
-                    <p className="mb-4 text-white/70">{item.year}</p>
-                    <p className="text-lg font-medium text-cyan-300">
-                      {item.grade}
+
+                    <div className="flex items-center gap-2 text-cyan-200/80 mb-4 font-medium text-lg">
+                      <Building2 size={18} /> {item.org}
+                    </div>
+
+                    <p className="text-white/60 leading-relaxed mb-6">
+                      {item.description || item.grade}
                     </p>
 
-                    <div className="flex items-center gap-3 mt-8 font-semibold transition-colors text-white/70 group-hover:text-cyan-400">
-                      <Award size={22} />
-                      <span>View Certificate →</span>
+                    <div className="inline-block px-4 py-2 rounded-xl bg-cyan-500/10 text-cyan-400 font-semibold border border-cyan-500/20 text-sm">
+                      {item.grade}
                     </div>
                   </div>
-                </div>
-              </motion.a>
-            ))}
-          </div>
 
-          {/* Bottom Quote */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="mt-32 text-center"
-          >
-            <p className="text-2xl italic font-light md:text-3xl text-white/50">
-              “The only way to do great work is to love what you do.” — Steve Jobs
-            </p>
-          </motion.div>
+                  {/* Meta / Sidebar */}
+                  <div className="flex flex-col items-start lg:items-end gap-4 lg:min-w-[180px]">
+                    <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 text-white/90 text-sm font-medium border border-white/10">
+                      <Calendar size={16} className="text-cyan-500" /> {item.year}
+                    </span>
+
+                    <a
+                      href={item.cert}
+                      target="_blank"
+                      className="group/btn flex items-center gap-3 text-sm font-bold text-white/50 hover:text-white transition-colors mt-auto"
+                    >
+                      <span>View Certificate</span>
+                      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/btn:bg-cyan-500 group-hover/btn:text-black transition-all">
+                        <Award size={16} />
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

@@ -1,8 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Sparkles, ExternalLink, Code2, X } from "lucide-react";
-
+import { motion, AnimatePresence } from "framer-motion";
+import { Sparkles, ExternalLink, Code2, X, Terminal, Database, Smartphone } from "lucide-react";
 import { useState } from "react";
 
 const academicProjects = [
@@ -10,27 +9,31 @@ const academicProjects = [
     title: "Online Property Sales",
     desc: "Real estate platform with role-based access control",
     tech: "HTML • CSS • PHP • MySQL",
+    icon: <Database />,
     details:
       "A complete real estate management system featuring user authentication (buyer/seller/admin), property listings with image uploads, advanced search filters, and a full admin dashboard for managing users and listings.",
   },
   {
     title: "Online Music Store",
-    desc: "E-commerce platform with shopping cart and payment simulation",
-    tech: "HTML • CSS • JavaScript • MySQL",
+    desc: "E-commerce platform with simulated payments",
+    tech: "HTML • CSS • JS • MySQL",
+    icon: <Terminal />,
     details:
       "Full-featured digital music store with product catalog, user accounts, shopping cart, wishlist, order history, and simulated payment gateway integration using session-based authentication.",
   },
   {
     title: "Gym Management System",
-    desc: "Android application for gym operations and member management",
+    desc: "Android application for gym operations",
     tech: "Java • Kotlin • Firebase",
+    icon: <Smartphone />,
     details:
       "Native Android app for gym owners and members. Features include membership registration, class scheduling, attendance tracking via QR code, real-time notifications, and trainer dashboards.",
   },
   {
-    title: "Pharmacy Management System",
-    desc: "Complete inventory and sales management for pharmacies",
-    tech: "React • Node.js • Express • MongoDB",
+    title: "Pharmacy Management",
+    desc: "Complete inventory and sales system",
+    tech: "MERN Stack",
+    icon: <Sparkles />,
     details:
       "Modern full-stack pharmacy system with drug inventory tracking, expiry alerts, prescription management, POS billing, sales analytics, and role-based access (pharmacist/admin).",
   },
@@ -40,133 +43,123 @@ export default function AcademicPage() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   return (
-    <>
-      {/* DARK CINEMATIC BACKGROUND */}
-      <div className="fixed inset-0 overflow-hidden -z-10">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute object-cover w-full h-full"
-          src="/video1.mp4"
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
-      </div>
+    <section className="min-h-screen px-6 py-24 relative flex flex-col justify-center">
+      <div className="max-w-7xl mx-auto w-full">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mb-20 text-center"
+        >
+          <h2 className="text-5xl md:text-7xl font-script tracking-wide text-white mb-6 drop-shadow-lg">
+            Academic Labs<span className="text-cyan-500 font-sans">.</span>
+          </h2>
+          <p className="text-xl text-white/50 max-w-2xl mx-auto">
+            Experimental grounds where deeper concepts meet practical application.
+          </p>
+        </motion.div>
 
-      {/* Right Side Navigation */}
-    
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {academicProjects.map((proj, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              viewport={{ once: true }}
+              onClick={() => setSelectedProject(proj)}
+              className={`group relative p-8 bg-white/5 border border-white/10 rounded-3xl overflow-hidden cursor-pointer hover:bg-white/10 hover:border-cyan-500/50 transition-all duration-300 ${i === 0 || i === 3 ? "md:col-span-2" : "md:col-span-1"
+                }`}
+            >
+              <div className="absolute top-6 right-8 text-6xl font-black text-white/5 group-hover:text-cyan-500/10 transition-colors select-none">
+                0{i + 1}
+              </div>
 
-      {/* ACADEMIC PROJECTS CONTENT */}
-      <section className="min-h-screen px-6 py-24 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-7xl">
-          {/* Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="mb-20 text-center"
-          >
-            <h1 className="text-6xl font-black tracking-tighter text-white md:text-8xl lg:text-7xl drop-shadow-2xl">
-              Academic Projects
-            </h1>
-            <p className="max-w-3xl mx-auto mt-8 text-xl font-light md:text-2xl text-white/60">
-              Foundation-building projects from my academic journey — where learning meets real-world implementation
-            </p>
-          </motion.div>
+              <div className="relative z-10 h-full flex flex-col justify-between min-h-[220px]">
+                <div className="p-3 w-fit bg-cyan-900/20 border border-cyan-500/20 rounded-xl text-cyan-400 mb-6 group-hover:scale-110 transition-transform origin-left">
+                  {proj.icon}
+                </div>
 
-          {/* Project Grid */}
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-            {academicProjects.map((proj, i) => (
-              <motion.article
-                key={i}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15, duration: 0.8 }}
-                onClick={() => setSelectedProject(proj)}
-                whileHover={{ y: -16, scale: 1.04 }}
-                className="relative overflow-hidden transition-all duration-500 border shadow-2xl cursor-pointer group bg-white/5 backdrop-blur-xl rounded-3xl border-white/10 hover:border-cyan-500/50"
-              >
-                {/* Cyan Hover Glow */}
-                <div className="absolute inset-0 transition-opacity duration-700 opacity-0 bg-gradient-to-br from-cyan-500/20 to-transparent group-hover:opacity-100" />
-
-                <div className="relative p-8 md:p-10">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="p-4 border shadow-xl bg-cyan-500/20 border-cyan-500/40 rounded-2xl">
-                      <Code2 className="text-cyan-400" size={32} />
-                    </div>
-                    <Sparkles className="text-cyan-400 opacity-70" size={28} />
-                  </div>
-
-                  <h3 className="mb-3 text-2xl font-bold text-white md:text-3xl">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold italic text-white mb-3 group-hover:text-cyan-200 transition-colors">
                     {proj.title}
                   </h3>
-                  <p className="mb-4 leading-relaxed text-white/70">
+                  <p className="text-white/60 mb-6 font-light leading-relaxed">
                     {proj.desc}
                   </p>
-                  <p className="text-sm font-medium tracking-wider text-cyan-400">
-                    {proj.tech}
-                  </p>
 
-                  <div className="flex items-center gap-3 mt-8 font-semibold transition-colors text-white/70 group-hover:text-cyan-400">
-                    <ExternalLink size={20} />
-                    <span>View Details →</span>
+                  <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/5">
+                    <span className="text-xs font-bold text-white/40 uppercase tracking-widest">{proj.tech}</span>
+                    <span className="p-2 rounded-full bg-white/5 text-white/70 group-hover:bg-cyan-500 group-hover:text-black transition-all">
+                      <ExternalLink size={18} />
+                    </span>
                   </div>
                 </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Project Details Modal */}
-      {selectedProject && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/90 backdrop-blur-md"
-          onClick={() => setSelectedProject(null)}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="relative w-full max-w-4xl p-10 border shadow-2xl bg-gray-900/95 backdrop-blur-2xl rounded-3xl md:p-16 border-white/10"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedProject(null)}
-              className="absolute transition top-6 right-6 text-white/70 hover:text-cyan-400"
-            >
-              <X size={36} />
-            </button>
-
-            <div className="flex items-center gap-4 mb-8">
-              <div className="p-4 bg-cyan-500/20 rounded-2xl">
-                <Code2 className="text-cyan-400" size={40} />
               </div>
-              <h2 className="text-4xl font-black text-white md:text-5xl">
-                {selectedProject.title}
-              </h2>
-            </div>
 
-            <p className="mb-6 text-xl font-semibold md:text-2xl text-cyan-400">
-              {selectedProject.tech}
-            </p>
+              {/* Gradient Hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
-            <p className="text-lg leading-relaxed md:text-xl text-white/80">
-              {selectedProject.details}
-            </p>
+      {/* Modal Overlay */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProject(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/90 backdrop-blur-md"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-3xl p-10 bg-[#0F0F0F] border border-white/10 rounded-[2.5rem] shadow-2xl overflow-hidden"
+            >
+              {/* Modal Glow */}
+              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-cyan-500/20 blur-[100px] -z-10" />
 
-            <div className="mt-12 text-center">
-              <p className="italic text-white/50">
-                Academic Project • Built with passion and curiosity
-              </p>
-            </div>
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-all"
+              >
+                <X size={24} />
+              </button>
+
+              <div className="flex items-center gap-4 mb-8">
+                <div className="p-4 bg-cyan-500/10 border border-cyan-500/30 rounded-2xl text-cyan-400">
+                  {selectedProject.icon}
+                </div>
+                <div>
+                  <h3 className="text-3xl font-bold italic text-white mb-1">{selectedProject.title}</h3>
+                  <p className="text-cyan-400 font-medium">{selectedProject.tech}</p>
+                </div>
+              </div>
+
+              <div className="prose prose-invert max-w-none">
+                <p className="text-lg leading-relaxed text-white/80">{selectedProject.details}</p>
+              </div>
+
+              <div className="mt-10 pt-8 border-t border-white/10 flex justify-end">
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="px-6 py-3 rounded-xl bg-white text-black font-bold hover:bg-cyan-500 transition-colors"
+                >
+                  Close & Continue
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
-    </>
+        )}
+      </AnimatePresence>
+    </section>
   );
 }

@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, Mail, MapPin, Phone, Send } from "lucide-react";
-
+import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 
 export default function ContactPage() {
@@ -36,177 +35,123 @@ export default function ContactPage() {
   };
 
   return (
-    <>
-      {/* DARK CINEMATIC BACKGROUND */}
-      <div className="fixed inset-0 overflow-hidden -z-10">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute object-cover w-full h-full"
-          src="/video1.mp4"
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40" />
+    <section className="min-h-screen px-6 py-24 flex items-center justify-center relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-[120px]" />
       </div>
 
-      {/* Right Side Nav */}
-  
+      <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
-    
+        {/* Left Column: Context & Info */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-6xl md:text-8xl font-script tracking-wide text-white mb-8 drop-shadow-xl leading-tight">
+            Let's work <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">together.</span>
+          </h2>
+          <p className="text-xl md:text-2xl text-white/50 mb-12 font-light max-w-lg">
+            I'm currently available for freelance work and open to full-time opportunities.
+          </p>
 
-      {/* CONTACT PAGE CONTENT */}
-      <section className="min-h-screen px-6 py-24 md:px-12 lg:px-20">
-        <div className="max-w-6xl mx-auto">
-          {/* Hero Title */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="mb-20 text-center"
-          >
-            <h1 className="text-6xl font-black tracking-tighter text-white md:text-8xl lg:text-7xl drop-shadow-2xl">
-              Get In Touch
-            </h1>
-            <p className="max-w-3xl mx-auto mt-8 text-xl font-light md:text-2xl text-white/60">
-              Let's turn your vision into reality — together
-            </p>
-          </motion.div>
+          <div className="space-y-6">
+            <a href="mailto:navodya@example.com" className="flex items-center gap-6 p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-white/10 hover:border-cyan-500/30 transition-all group">
+              <div className="p-4 bg-cyan-500/20 text-cyan-400 rounded-2xl group-hover:scale-110 transition-transform">
+                <Mail size={28} />
+              </div>
+              <div>
+                <h3 className="text-white font-bold text-lg mb-1">Email Me</h3>
+                <span className="text-white/60 group-hover:text-white transition-colors">navodyadilruwan220@gmail.com</span>
+              </div>
+            </a>
 
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
-            {/* Contact Info Cards */}
-            <div className="space-y-8">
-              <motion.a
-                href="mailto:navodya@example.com"
-                initial={{ opacity: 0, x: -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className="block p-8 transition-all duration-500 border group bg-white/5 backdrop-blur-xl rounded-3xl border-white/10 hover:border-cyan-500/50"
-              >
-                <div className="flex items-center gap-5">
-                  <div className="p-4 border bg-cyan-500/20 rounded-2xl border-cyan-500/40">
-                    <Mail className="text-cyan-400" size={32} />
-                  </div>
-                  <div>
-                    <h3 className="mb-1 text-xl font-bold text-white">Email</h3>
-                    <p className="transition text-white/70 group-hover:text-cyan-400">
-                      navodya@example.com
-                    </p>
-                  </div>
-                </div>
-              </motion.a>
-
-              <motion.a
-                href="tel:+94123456789"
-                initial={{ opacity: 0, x: -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="block p-8 transition-all duration-500 border group bg-white/5 backdrop-blur-xl rounded-3xl border-white/10 hover:border-cyan-500/50"
-              >
-                <div className="flex items-center gap-5">
-                  <div className="p-4 border bg-cyan-500/20 rounded-2xl border-cyan-500/40">
-                    <Phone className="text-cyan-400" size={32} />
-                  </div>
-                  <div>
-                    <h3 className="mb-1 text-xl font-bold text-white">Phone</h3>
-                    <p className="transition text-white/70 group-hover:text-cyan-400">
-                      +94 71 234 5678
-                    </p>
-                  </div>
-                </div>
-              </motion.a>
-
-              <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.7 }}
-                className="p-8 border bg-white/5 backdrop-blur-xl rounded-3xl border-white/10"
-              >
-                <div className="flex items-center gap-5">
-                  <div className="p-4 border bg-cyan-500/20 rounded-2xl border-cyan-500/40">
-                    <MapPin className="text-cyan-400" size={32} />
-                  </div>
-                  <div>
-                    <h3 className="mb-1 text-xl font-bold text-white">Location</h3>
-                    <p className="text-white/70">Colombo, Sri Lanka</p>
-                  </div>
-                </div>
-              </motion.div>
+            <div className="grid grid-cols-2 gap-6">
+              <a href="https://linkedin.com" target="_blank" className="flex flex-col items-center justify-center p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-[#0077b5]/20 hover:border-[#0077b5]/50 transition-all group text-center">
+                <Linkedin size={32} className="text-white/50 group-hover:text-[#0077b5] mb-3 transition-colors" />
+                <span className="font-bold text-white group-hover:text-[#0077b5]">LinkedIn</span>
+              </a>
+              <a href="https://github.com" target="_blank" className="flex flex-col items-center justify-center p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-white/20 transition-all group text-center">
+                <Github size={32} className="text-white/50 group-hover:text-white mb-3 transition-colors" />
+                <span className="font-bold text-white">GitHub</span>
+              </a>
             </div>
+          </div>
+        </motion.div>
 
-            {/* Contact Form */}
-            <motion.form
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8 }}
-              onSubmit={handleSubmit}
-              className="p-8 border bg-white/5 backdrop-blur-xl rounded-3xl md:p-10 border-white/10"
-            >
-              <div className="space-y-6">
+        {/* Right Column: Form */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="relative"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 blur-2xl -z-10 transform rotate-6 scale-95" />
+
+          <div className="p-8 md:p-12 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 rounded-[3rem] shadow-2xl">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-bold text-white/40 mb-2 ml-2">YOUR NAME</label>
                 <input
                   type="text"
-                  placeholder="Your Name"
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-6 py-5 text-white transition border bg-white/10 border-white/20 rounded-2xl placeholder-white/50 focus:border-cyan-500 focus:outline-none"
+                  className="w-full px-6 py-4 text-lg text-white bg-white/5 border border-white/10 rounded-2xl focus:border-cyan-500 focus:bg-white/10 focus:outline-none transition-all"
+                  placeholder="full name"
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-white/40 mb-2 ml-2">EMAIL ADDRESS</label>
                 <input
                   type="email"
-                  placeholder="your@email.com"
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full px-6 py-5 text-white transition border bg-white/10 border-white/20 rounded-2xl placeholder-white/50 focus:border-cyan-500 focus:outline-none"
+                  className="w-full px-6 py-4 text-lg text-white bg-white/5 border border-white/10 rounded-2xl focus:border-cyan-500 focus:bg-white/10 focus:outline-none transition-all"
+                  placeholder="name@gmail.com"
                 />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-white/40 mb-2 ml-2">MESSAGE</label>
                 <textarea
-                  placeholder="Tell me about your project..."
-                  rows={6}
+                  rows={4}
                   required
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="w-full px-6 py-5 text-white transition border resize-none bg-white/10 border-white/20 rounded-2xl placeholder-white/50 focus:border-cyan-500 focus:outline-none"
+                  className="w-full px-6 py-4 text-lg text-white bg-white/5 border border-white/10 rounded-2xl resize-none focus:border-cyan-500 focus:bg-white/10 focus:outline-none transition-all"
+                  placeholder="Tell me about your project..."
                 />
-
-                <motion.button
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="submit"
-                  className="flex items-center justify-center w-full gap-3 py-5 text-xl font-bold transition-all duration-300 border-2 shadow-2xl bg-cyan-500/20 border-cyan-500/50 text-cyan-300 rounded-2xl hover:bg-cyan-500/30 hover:border-cyan-400 hover:text-white"
-                >
-                  <Send size={24} />
-                  Send Message
-                </motion.button>
-
-                {status && (
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={`text-center font-semibold text-lg ${
-                      status.includes("sent") ? "text-cyan-400" : "text-red-400"
-                    }`}
-                  >
-                    {status}
-                  </motion.p>
-                )}
               </div>
-            </motion.form>
-          </div>
 
-          {/* Final Quote */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="mt-32 text-center"
-          >
-            <p className="text-2xl italic font-light md:text-3xl text-white/40">
-              “Great things are done by a series of small things brought together.” — Vincent van Gogh
-            </p>
-          </motion.div>
-        </div>
-      </section>
-    </>
+              <button
+                type="submit"
+                className="w-full py-5 mt-4 bg-white text-black font-black text-xl rounded-2xl hover:bg-cyan-400 hover:scale-[1.02] transition-all duration-300 shadow-xl flex items-center justify-center gap-2"
+              >
+                <Send size={20} />
+                Send Message
+              </button>
+
+              {status && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`text-center font-bold mt-4 ${status.includes("sent") ? "text-cyan-400" : "text-red-400"
+                    }`}
+                >
+                  {status}
+                </motion.p>
+              )}
+            </form>
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
   );
 }

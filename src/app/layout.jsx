@@ -1,15 +1,29 @@
 import "./globals.css";
-import Nav from "./components/Nav";
 import { Icons } from "lucide-react";
+import { Alex_Brush, Montserrat, Playfair_Display } from "next/font/google";
 
+const alexBrush = Alex_Brush({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-alex-brush",
+});
 
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
 
 export const metadata = {
   title: "Navodya Dilruwan",
   icons: {
     icon: "/profile.jpg",
   },
-  
+
 };
 
 
@@ -21,7 +35,7 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
 
-      <body className="relative min-h-screen overflow-x-hidden text-white bg-black">
+      <body className={`relative min-h-screen overflow-x-hidden text-white bg-black ${alexBrush.variable} ${montserrat.variable} ${playfair.variable} font-sans`}>
         {/* Full-Screen Video Background */}
         <div className="fixed inset-0 overflow-hidden -z-10">
           <video
@@ -36,24 +50,12 @@ export default function RootLayout({ children }) {
           </video>
 
           {/* Dark Overlay - Responsive Opacity */}
-          <div className="absolute inset-0 bg-black/70 sm:bg-black/60 md:bg-black/50" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-black/70 sm:bg-black/80 backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
         </div>
 
-        {/* Right Side Navigation - Hidden on Mobile, Shows on Hover/Tap */}
-        <div className="fixed z-50 hidden -translate-y-1/2 right-4 top-1/2 md:block">
-          <Nav />
-        </div>
-
-        {/* Mobile Bottom Navigation Bar */}
-        <nav className="fixed bottom-0 left-0 right-0 z-50 border-t md:hidden bg-black/70 backdrop-blur-xl border-white/10">
-          <div className="flex items-center justify-around px-4 py-3">
-            <Nav /> {/* Reuses same Nav component — it auto-adjusts on mobile */}
-          </div>
-        </nav>
-
-        {/* Main Content Area - Padding for Mobile Bottom Nav */}
-        <main className="relative z-20 pb-24 md:pb-0">
+        {/* Main Content Area */}
+        <main className="relative z-20">
           {children}
         </main>
       </body>
