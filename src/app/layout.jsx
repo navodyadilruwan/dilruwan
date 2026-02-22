@@ -1,5 +1,4 @@
 import "./globals.css";
-import { Icons } from "lucide-react";
 import { Alex_Brush, Montserrat, Playfair_Display } from "next/font/google";
 
 const alexBrush = Alex_Brush({
