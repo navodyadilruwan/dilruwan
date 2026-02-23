@@ -34,7 +34,7 @@ export default function Home() {
               transition={{ delay: 0.5, duration: 1 }}
               className="mt-6 text-2xl font-bold md:text-4xl text-cyan-400 drop-shadow-lg"
             >
-              Full-Stack Engineer
+              Full-Stack Developer
             </motion.p>
 
             {/* Script Text Request */}
@@ -65,7 +65,7 @@ export default function Home() {
               className="flex flex-col items-center gap-6 mt-10 sm:flex-row lg:justify-start justify-center"
             >
               <Link
-                href="/projects"
+                href="#projects"
                 className="px-10 py-5 text-lg font-bold text-white transition-all duration-500 border-2 shadow-2xl group bg-white/10 backdrop-blur-xl border-white/20 rounded-2xl hover:bg-white/20 hover:border-cyan-500/60 hover:text-cyan-300"
               >
                 <span className="flex items-center gap-3">
@@ -80,7 +80,7 @@ export default function Home() {
               </Link>
 
               <Link
-                href="/contact"
+                href="#contact"
                 className="px-10 py-5 text-lg font-bold transition-all duration-500 border-2 shadow-2xl bg-cyan-500/20 backdrop-blur-xl border-cyan-500/50 rounded-2xl text-cyan-300 hover:bg-cyan-500/30 hover:border-cyan-400 shadow-cyan-500/40"
               >
                 Let’s Talk

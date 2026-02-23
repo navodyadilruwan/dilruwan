@@ -23,7 +23,7 @@ const projects = [
     title: "University management",
     image: "/myunivers.png",
     description: "Comprehensive university admission portal with role-based access control, course cataloging, and application tracking.",
-    technologies: ["Next.js", "PostgreSQL", "TailwindCSS"],
+    technologies: ["Next.js", "Drizzle ORM", "PostgreSQL"],
     live: "https://myuniverse.example.com",
     github: "https://github.com/yourname/my-universe",
     category: "company",
@@ -34,7 +34,7 @@ const projects = [
     title: "Childcare SaaS",
     image: "/kidlink.png",
     description: "Digital management solution for childcare centers offering attendance tracking, parent communication, and activity logging.",
-    technologies: ["Next.js", "TypeScript", "Prisma"],
+    technologies: ["Next.js", "Drizzle ORM", "PostgreSQL"],
     live: "https://kidlink.example.com",
     github: "https://github.com/yourname/kid-link",
     category: "company",
@@ -45,7 +45,7 @@ const projects = [
     title: "Job management system",
     image: "/ejob.png",
     description: "Advanced job search platform connecting talent with opportunities through intelligent filtering and candidate profiling.",
-    technologies: ["React", "Node.js", "MongoDB"],
+    technologies: ["Next.js", "Drizzle ORM", "PostgreSQL"],
     live: "https://ejobs.example.com",
     github: "https://github.com/yourname/e-jobs",
     category: "company",
@@ -54,9 +54,9 @@ const projects = [
     id: 5,
     name: "Taxi App",
     title: "Mobility Solution",
-    image: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=80",
+    image: "/taxi.jpg",
     description: "Real-time ride-hailing application with live GPS tracking, driver dispatching, and secure payment integration.",
-    technologies: ["React Native", "Socket.io", "Google Maps API"],
+    technologies: ["Next.js", "Drizzle ORM", "PostgreSQL"],
     live: "https://taxiapp.example.com",
     github: "https://github.com/yourname/taxi-app",
     category: "company",
@@ -65,9 +65,9 @@ const projects = [
     id: 6,
     name: "CBL Natural Foods",
     title: "Corporate Frontend",
-    image: "https://images.unsplash.com/photo-1626074353765-517a681e40be?w=800&q=80",
+    image: "/cbl.png",
     description: "Modern corporate website overhaul with interactive product showcases, certification galleries, and social integration.",
-    technologies: ["React.js", "Framer Motion", "SCSS"],
+    technologies: ["React.js", "tailwindcss"],
     live: "https://cbl.example.com",
     github: "#",
     category: "company",
@@ -78,7 +78,7 @@ const projects = [
     title: "Manjula Ayurveda full system manage system",
     image: "/manjula.png",
     description: "Ayurveda by Manjula is the first project of my startup, where I led the development and built the complete backend using Next.js API routes and PostgreSQL, along with key frontend features using React.js.",
-    technologies: ["Next.js", "PostgreSQL", "TailwindCSS"],
+    technologies: ["Next.js", "Drizzle ORM", "PostgreSQL", "TailwindCSS"],
     live: "https://manjula.cloud",
     github: "#",
     category: "personal",
@@ -99,7 +99,7 @@ export default function Projects() {
   );
 
   return (
-    <section className="min-h-screen px-6 py-24 relative">
+    <section id="projects" className="min-h-screen px-6 py-24 relative">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -165,9 +165,9 @@ export default function Projects() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-90" />
 
-                  <div className="absolute top-6 right-6 p-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white/50 group-hover:text-cyan-400 group-hover:border-cyan-500/50 transition-all">
+                  {/* <div className="absolute top-6 right-6 p-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white/50 group-hover:text-cyan-400 group-hover:border-cyan-500/50 transition-all">
                     <ArrowUpRight size={20} />
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Content Section */}
@@ -199,9 +199,9 @@ export default function Projects() {
                           <ExternalLink size={20} />
                         </Link>
                       ) : null}
-                      <Link href={project.github} target="_blank" className="text-white hover:text-cyan-400 transition-colors">
+                      {/* <Link href={project.github} target="_blank" className="text-white hover:text-cyan-400 transition-colors">
                         <Github size={20} />
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                 </div>

@@ -35,7 +35,7 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="min-h-screen px-6 py-24 flex items-center justify-center relative overflow-hidden">
+    <section id="contact" className="min-h-screen px-6 py-24 flex items-center justify-center relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
         <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px]" />
