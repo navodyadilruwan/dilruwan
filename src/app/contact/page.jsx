@@ -35,7 +35,7 @@ export default function ContactPage() {
   };
 
   return (
-    <section className="min-h-screen px-6 py-24 flex items-center justify-center relative overflow-hidden">
+    <section id="contact" className="min-h-screen px-6 py-24 flex items-center justify-center relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
         <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px]" />
@@ -71,11 +71,11 @@ export default function ContactPage() {
             </a>
 
             <div className="grid grid-cols-2 gap-6">
-              <a href="https://linkedin.com" target="_blank" className="flex flex-col items-center justify-center p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-[#0077b5]/20 hover:border-[#0077b5]/50 transition-all group text-center">
+              <a href="https://www.linkedin.com/in/navodya-dilruwan-3b8a243b2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" className="flex flex-col items-center justify-center p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-[#0077b5]/20 hover:border-[#0077b5]/50 transition-all group text-center">
                 <Linkedin size={32} className="text-white/50 group-hover:text-[#0077b5] mb-3 transition-colors" />
                 <span className="font-bold text-white group-hover:text-[#0077b5]">LinkedIn</span>
               </a>
-              <a href="https://github.com" target="_blank" className="flex flex-col items-center justify-center p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-white/20 transition-all group text-center">
+              <a href="https://github.com/navodyadilruwan" target="_blank" className="flex flex-col items-center justify-center p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-white/20 transition-all group text-center">
                 <Github size={32} className="text-white/50 group-hover:text-white mb-3 transition-colors" />
                 <span className="font-bold text-white">GitHub</span>
               </a>
