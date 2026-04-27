@@ -43,7 +43,7 @@ export default function AcademicPage() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   return (
-    <section className="min-h-screen px-6 py-24 relative flex flex-col justify-center">
+    <section id="academic" className="min-h-screen px-6 py-24 relative flex flex-col justify-center">
       <div className="max-w-7xl mx-auto w-full">
         {/* Header */}
         <motion.div
@@ -53,10 +53,10 @@ export default function AcademicPage() {
           viewport={{ once: true }}
           className="mb-20 text-center"
         >
-          <h2 className="text-5xl md:text-7xl font-script tracking-wide text-white mb-6 drop-shadow-lg">
-            Academic Labs<span className="text-cyan-500 font-sans">.</span>
+          <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+            Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">Projects</span>
           </h2>
-          <p className="text-xl text-white/50 max-w-2xl mx-auto">
+          <p className="text-xl text-white/60 max-w-2xl mx-auto">
             Experimental grounds where deeper concepts meet practical application.
           </p>
         </motion.div>
