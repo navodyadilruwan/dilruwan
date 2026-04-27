@@ -44,110 +44,143 @@ export default function ContactPage() {
 
       <div className="max-w-7xl w-full grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
-        {/* Left Column: Context & Info */}
+        {/* Left Column: Intro + contact cards */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
+          initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-6xl md:text-8xl font-script tracking-wide text-white mb-8 drop-shadow-xl leading-tight">
-            Let's work <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">together.</span>
+          <div className="inline-flex items-center gap-3 rounded-full bg-white/5 px-4 py-2 mb-8 border border-white/10 text-sm text-cyan-200 uppercase tracking-[0.25em]">
+            <span className="h-2 w-2 rounded-full bg-cyan-400" />
+            Say hello
+          </div>
+          <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+            Let's build something <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-slate-100 to-purple-400">amazing</span> together.
           </h2>
-          <p className="text-xl md:text-2xl text-white/50 mb-12 font-light max-w-lg">
-            I'm currently available for freelance work and open to full-time opportunities.
+          <p className="text-lg md:text-xl text-white/70 mb-10 max-w-xl font-medium">
+            I’m available for freelance work, collaborations, and full-time opportunities. Send a quick message and I’ll get back to you within 24 hours.
           </p>
 
-          <div className="space-y-6">
-            <a href="mailto:navodya@example.com" className="flex items-center gap-6 p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-white/10 hover:border-cyan-500/30 transition-all group">
-              <div className="p-4 bg-cyan-500/20 text-cyan-400 rounded-2xl group-hover:scale-110 transition-transform">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <a href="mailto:navodyadilruwan220@gmail.com" className="group flex flex-col gap-4 rounded-[2rem] bg-[#111111]/90 border border-white/10 p-6 hover:border-cyan-500/40 hover:bg-white/5 transition-all">
+              <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-cyan-500/15 text-cyan-300 group-hover:bg-cyan-500/25 transition-colors">
                 <Mail size={28} />
               </div>
               <div>
-                <h3 className="text-white font-bold text-lg mb-1">Email Me</h3>
-                <span className="text-white/60 group-hover:text-white transition-colors">navodyadilruwan220@gmail.com</span>
+                <p className="text-sm uppercase tracking-[0.24em] text-white/40 mb-2">Email</p>
+                <p className="text-white font-semibold">navodyadilruwan220@gmail.com</p>
               </div>
             </a>
 
-            <div className="grid grid-cols-2 gap-6">
-              <a href="https://www.linkedin.com/in/navodya-dilruwan-3b8a243b2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" className="flex flex-col items-center justify-center p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-[#0077b5]/20 hover:border-[#0077b5]/50 transition-all group text-center">
-                <Linkedin size={32} className="text-white/50 group-hover:text-[#0077b5] mb-3 transition-colors" />
-                <span className="font-bold text-white group-hover:text-[#0077b5]">LinkedIn</span>
-              </a>
-              <a href="https://github.com/navodyadilruwan" target="_blank" className="flex flex-col items-center justify-center p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-white/20 transition-all group text-center">
-                <Github size={32} className="text-white/50 group-hover:text-white mb-3 transition-colors" />
-                <span className="font-bold text-white">GitHub</span>
-              </a>
+            <div className="group flex flex-col gap-4 rounded-[2rem] bg-[#111111]/90 border border-white/10 p-6 hover:border-purple-500/40 hover:bg-white/5 transition-all">
+              <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-purple-500/15 text-purple-300 transition-colors">
+                <MapPin size={28} />
+              </div>
+              <div>
+                <p className="text-sm uppercase tracking-[0.24em] text-white/40 mb-2">Location</p>
+                <p className="text-white font-semibold">Ambalangoda, Sri Lanka</p>
+              </div>
             </div>
+
+            <a href="https://www.linkedin.com/in/navodya-dilruwan-3b8a243b2" target="_blank" className="group flex flex-col gap-4 rounded-[2rem] bg-[#111111]/90 border border-white/10 p-6 hover:border-[#0a66c2]/40 hover:bg-white/5 transition-all">
+              <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-[#0a66c2]/15 text-[#0a66c2] transition-colors">
+                <Linkedin size={28} />
+              </div>
+              <div>
+                <p className="text-sm uppercase tracking-[0.24em] text-white/40 mb-2">LinkedIn</p>
+                <p className="text-white font-semibold">Connect on LinkedIn</p>
+              </div>
+            </a>
+
+            <a href="https://github.com/navodyadilruwan" target="_blank" className="group flex flex-col gap-4 rounded-[2rem] bg-[#111111]/90 border border-white/10 p-6 hover:border-white/30 hover:bg-white/5 transition-all">
+              <div className="flex h-16 w-16 items-center justify-center rounded-3xl bg-white/10 text-white transition-colors">
+                <Github size={28} />
+              </div>
+              <div>
+                <p className="text-sm uppercase tracking-[0.24em] text-white/40 mb-2">GitHub</p>
+                <p className="text-white font-semibold">View my work</p>
+              </div>
+            </a>
           </div>
         </motion.div>
 
         {/* Right Column: Form */}
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
+          initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
           className="relative"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 blur-2xl -z-10 transform rotate-6 scale-95" />
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 blur-3xl -z-10 rounded-[3rem]" />
 
-          <div className="p-8 md:p-12 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 rounded-[3rem] shadow-2xl">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-bold text-white/40 mb-2 ml-2">YOUR NAME</label>
-                <input
-                  type="text"
-                  required
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-6 py-4 text-lg text-white bg-white/5 border border-white/10 rounded-2xl focus:border-cyan-500 focus:bg-white/10 focus:outline-none transition-all"
-                  placeholder="full name"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-white/40 mb-2 ml-2">EMAIL ADDRESS</label>
-                <input
-                  type="email"
-                  required
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full px-6 py-4 text-lg text-white bg-white/5 border border-white/10 rounded-2xl focus:border-cyan-500 focus:bg-white/10 focus:outline-none transition-all"
-                  placeholder="name@gmail.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-bold text-white/40 mb-2 ml-2">MESSAGE</label>
-                <textarea
-                  rows={4}
-                  required
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="w-full px-6 py-4 text-lg text-white bg-white/5 border border-white/10 rounded-2xl resize-none focus:border-cyan-500 focus:bg-white/10 focus:outline-none transition-all"
-                  placeholder="Tell me about your project..."
-                />
+          <div className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-[#080808]/90 shadow-[0_40px_120px_rgba(10,17,24,0.55)]">
+            <div className="absolute inset-x-0 top-0 h-2 bg-gradient-to-r from-cyan-400 via-purple-400 to-fuchsia-400" />
+            <div className="p-8 md:p-12">
+              <div className="mb-8">
+                <p className="text-sm uppercase tracking-[0.3em] text-cyan-300/80 mb-3">Contact form</p>
+                <h3 className="text-3xl font-semibold text-white">Let’s start your next project.</h3>
               </div>
 
-              <button
-                type="submit"
-                className="w-full py-5 mt-4 bg-white text-black font-black text-xl rounded-2xl hover:bg-cyan-400 hover:scale-[1.02] transition-all duration-300 shadow-xl flex items-center justify-center gap-2"
-              >
-                <Send size={20} />
-                Send Message
-              </button>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <label className="block">
+                    <span className="text-sm text-white/50">Name</span>
+                    <input
+                      type="text"
+                      required
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      className="mt-3 w-full rounded-3xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-white/40 outline-none transition-all focus:border-cyan-400 focus:bg-white/10"
+                      placeholder="Your name"
+                    />
+                  </label>
 
-              {status && (
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`text-center font-bold mt-4 ${status.includes("sent") ? "text-cyan-400" : "text-red-400"
-                    }`}
+                  <label className="block">
+                    <span className="text-sm text-white/50">Email</span>
+                    <input
+                      type="email"
+                      required
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      className="mt-3 w-full rounded-3xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-white/40 outline-none transition-all focus:border-cyan-400 focus:bg-white/10"
+                      placeholder="name@example.com"
+                    />
+                  </label>
+                </div>
+
+                <label className="block">
+                  <span className="text-sm text-white/50">Message</span>
+                  <textarea
+                    rows={5}
+                    required
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    className="mt-3 w-full rounded-3xl border border-white/10 bg-white/5 px-5 py-4 text-white placeholder:text-white/40 outline-none transition-all focus:border-cyan-400 focus:bg-white/10 resize-none"
+                    placeholder="Tell me about your project, timeline, or technologies..."
+                  />
+                </label>
+
+                <button
+                  type="submit"
+                  className="inline-flex w-full items-center justify-center gap-3 rounded-3xl bg-cyan-400 px-8 py-4 text-lg font-extrabold text-slate-950 shadow-[0_20px_50px_rgba(56,189,248,0.25)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-cyan-300"
                 >
-                  {status}
-                </motion.p>
-              )}
-            </form>
+                  <Send size={20} />
+                  Send Message
+                </button>
+
+                {status && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`text-center text-sm font-semibold ${status.includes("sent") ? "text-cyan-300" : "text-rose-300"}`}
+                  >
+                    {status}
+                  </motion.p>
+                )}
+              </form>
+            </div>
           </div>
         </motion.div>
 

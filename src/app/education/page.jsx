@@ -9,9 +9,8 @@ const education = [
     title: "BSc (Hons) Information Technology",
     org: "SLIIT – Sri Lanka Institute of Information Technology",
     year: "2021",
-    grade: "Ongoing (First Class Expected)",
     cert: "/waiting.jpg",
-    description: "Specializing in Software Engineering with a focus on distributed systems, AI applications, and advanced web architectures."
+    description: "Specializing in Information Technology with a focus on distributed systems, AI applications, and advanced web architectures."
   },
   {
     title: "Diploma in Information Technology",
@@ -44,9 +43,10 @@ export default function Education() {
 
   return (
     <>
-      <section className="min-h-screen px-6 py-24 relative overflow-hidden flex flex-col justify-center">
+      <section id="education" className="min-h-screen px-6 py-24 relative overflow-hidden flex flex-col justify-center bg-[#050506]">
         {/* Background Glow */}
-        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px] -z-10 -translate-y-1/2" />
+        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-cyan-500/6 rounded-full blur-[120px] -z-10 -translate-y-1/2" />
+        <div className="absolute bottom-12 left-0 w-[360px] h-[360px] bg-purple-500/6 rounded-full blur-[120px] -z-10" />
 
         <div className="max-w-5xl mx-auto w-full">
           <motion.div
@@ -56,9 +56,12 @@ export default function Education() {
             viewport={{ once: true }}
             className="mb-20"
           >
-            <h2 className="text-5xl md:text-7xl font-script tracking-wide text-white mb-6 drop-shadow-lg">
-              Education <span className="text-cyan-500 font-sans">.</span>
+            <h2 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">Education</span>
             </h2>
+            <p className="text-lg md:text-xl text-white/60 max-w-3xl mb-6">
+              Formal training, practical internships, and certification highlights that showcase my growth in software engineering and design.
+            </p>
             <div className="h-1 w-32 bg-gradient-to-r from-cyan-500 to-transparent rounded-full" />
           </motion.div>
 
@@ -77,40 +80,39 @@ export default function Education() {
                 <span className="absolute -left-[5px] top-8 w-2.5 h-2.5 rounded-full bg-cyan-500 shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
 
                 {/* Card */}
-                <div className="group relative p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm transition-all duration-500 hover:bg-white/10 hover:border-cyan-500/30 hover:shadow-2xl hover:shadow-cyan-900/10">
+                <div className="group relative p-8 rounded-[2.5rem] bg-[#0c0c0f]/90 border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-all duration-500 hover:bg-white/10 hover:border-cyan-500/30">
                   <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
 
                     {/* Content */}
                     <div className="flex-1">
-                      <h3 className="text-2xl md:text-3xl font-bold italic text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                      <h3 className="text-2xl md:text-3xl font-semibold text-white mb-2 group-hover:text-cyan-300 transition-colors">
                         {item.title}
                       </h3>
 
-                      <div className="flex items-center gap-2 text-cyan-200/80 mb-4 font-medium text-lg">
-                        <Building2 size={18} /> {item.org}
+                      <div className="flex flex-col gap-2 text-cyan-200/80 mb-4 font-medium text-base md:text-lg">
+                        <span className="inline-flex items-center gap-2">
+                          <Building2 size={18} /> {item.org}
+                        </span>
+                        <span className="text-sm uppercase tracking-[0.3em] text-white/40">{item.grade}</span>
                       </div>
 
                       <p className="text-white/60 leading-relaxed mb-6">
-                        {item.description || item.grade}
+                        {item.description}
                       </p>
-
-
                     </div>
 
                     {/* Meta / Sidebar */}
-                    <div className="flex flex-col items-start lg:items-end gap-4 lg:min-w-[180px]">
-                      <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/40 text-white/90 text-sm font-medium border border-white/10">
-                        <Calendar size={16} className="text-cyan-500" /> {item.year}
+                    <div className="flex flex-col items-start lg:items-end gap-4 lg:min-w-[220px]">
+                      <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 text-cyan-200 text-sm font-semibold border border-cyan-500/10">
+                        <Calendar size={16} className="text-cyan-400" /> {item.year}
                       </span>
 
                       <button
                         onClick={() => setSelectedCert(item.cert)}
-                        className="group/btn flex items-center gap-3 text-sm font-bold text-white/50 hover:text-white transition-colors mt-auto cursor-pointer"
+                        className="inline-flex items-center gap-3 rounded-full bg-white/5 px-4 py-3 text-sm font-semibold text-white/80 hover:bg-cyan-500/15 hover:text-white transition-all"
                       >
-                        <span>View Certification</span>
-                        <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover/btn:bg-cyan-500 group-hover/btn:text-black transition-all">
-                          <Award size={16} />
-                        </div>
+                        <Award size={16} />
+                        View Certificate
                       </button>
                     </div>
                   </div>
